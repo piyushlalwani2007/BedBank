@@ -1,8 +1,8 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-from simulator import generate_arrivals, run_simulation
-from metrics import compute_metrics
+from .simulator import generate_arrivals, run_simulation # Changed to relative import
+from .metrics import compute_metrics # Changed to relative import
 
 # Standard Constants
 N_PATIENTS = 500
@@ -21,7 +21,7 @@ def cached_simulation_run(seed_val, policy_name):
     patients = generate_arrivals(rng, N_PATIENTS, INTERARRIVAL_MEAN, ACUITY_LEVELS, ACUITY_PROBS)
 
     # Run simulation
-    results = run_simulation(patients, rng, BED_CAPACITY, LOS_MEDIAN, LOS_SIGMA, MAX_WAIT)
+    results = run_simulation(patients, rng, BED_CAPACITY, LOS_MEDIAN, LOS_SIGMA, MAX_WAIT, policy_name)
     metrics, _ = compute_metrics(results, MAX_WAIT)
     return metrics
 
@@ -33,7 +33,7 @@ st.sidebar.header("Simulation Settings")
 seed_input = st.sidebar.text_input("Enter Seeds (comma separated)", "20260911, 1, 2")
 selected_policies = st.sidebar.multiselect(
     "Select Policies to Compare",
-    options=["baseline", "Rule B", "critical-bed-buffer"],
+    options=["baseline", "critical-bed-buffer"],
     default=["baseline"]
 )
 
