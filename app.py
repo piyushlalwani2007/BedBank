@@ -1,8 +1,8 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-from bedbank.simulator import generate_arrivals, run_simulation
-from bedbank.metrics import compute_metrics
+from simulator import generate_arrivals, run_simulation
+from metrics import compute_metrics
 
 # Standard Constants
 N_PATIENTS = 500

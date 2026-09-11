@@ -3,7 +3,7 @@ import heapq
 import pandas as pd
 from dataclasses import dataclass
 from typing import Optional, List
-from bedbank.policies import try_assign, pick_from_queue
+from policies import try_assign, pick_from_queue
 
 @dataclass
 class Patient:
