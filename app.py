@@ -1,8 +1,8 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-from .simulator import generate_arrivals, run_simulation # Changed to relative import
-from .metrics import compute_metrics # Changed to relative import
+from simulator import generate_arrivals, run_simulation # Changed to direct import
+from metrics import compute_metrics # Changed to direct import
 
 # Standard Constants
 N_PATIENTS = 500
