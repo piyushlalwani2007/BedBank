@@ -1,8 +1,8 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-from simulator import generate_arrivals, run_simulation # Changed to direct import
-from metrics import compute_metrics # Changed to direct import
+from simulator import generate_arrivals, run_simulation
+from metrics import compute_metrics
 
 # Standard Constants
 N_PATIENTS = 500
@@ -79,6 +79,10 @@ if run_button:
         }))
 
         # Comparison Bar Chart if multiple policies are selected
+        if len(selected_policies) > 1:
+            st.subheader("Policy Comparison (Averages across Seeds)")
+            avg_df = df_results.groupby("Policy")[["U_wait", "U_critical", "U_reject", "U_specialized"]].mean()
+            st.bar_chart(avg_df)
         if len(selected_policies) > 1:
             st.subheader("Policy Comparison (Averages across Seeds)")
             avg_df = df_results.groupby("Policy")[["U_wait", "U_critical", "U_reject", "U_specialized"]].mean()
