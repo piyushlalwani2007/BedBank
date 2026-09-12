@@ -3,7 +3,7 @@ import heapq
 import pandas as pd
 from dataclasses import dataclass
 from typing import Optional, List, Dict
-from .policies import try_assign_policy, pick_from_queue # Corrected to relative import
+from policies import try_assign_policy, pick_from_queue
 
 @dataclass
 class Patient:
