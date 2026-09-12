@@ -3,7 +3,7 @@ import heapq
 import pandas as pd
 from dataclasses import dataclass
 from typing import Optional, List, Dict
-from policies import try_assign_policy, pick_from_queue
+from policies import try_assign_policy, pick_admissible_from_queue
 
 @dataclass
 class Patient:
@@ -77,9 +77,14 @@ def run_simulation(patients: List[Patient], rng: np.random.Generator, bed_capaci
 
         elif event_type == "DISCHARGE":
             bed_state[patient.bed_type]["free"] += 1
-            chosen = pick_from_queue(patient.bed_type, waiting_queue, current_time)
+            # Respects the same reservation rule used at ARRIVAL time, so a buffering
+            # policy's reserved capacity can't be handed away the instant it turns over.
+            chosen = pick_admissible_from_queue(patient.bed_type, waiting_queue, current_time, bed_state, policy_name)
             if chosen:
                 waiting_queue.remove(chosen)
                 admit(chosen, patient.bed_type, current_time)
+            # else: no eligible waiter passes the reservation gate right now - the bed
+            # stays free, preserved for a higher-priority arrival, consistent with the
+            # chosen policy's intent.
 
     return patients
