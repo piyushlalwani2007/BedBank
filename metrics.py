@@ -4,6 +4,7 @@ from typing import List, Dict, Any, Tuple
 
 WAIT_WEIGHT = {1: 1, 2: 3, 3: 8}
 
+
 def compute_metrics(patients: List[Any], max_wait: float) -> Tuple[Dict[str, Any], pd.DataFrame]:
     df = pd.DataFrame([{
         "id": p.id, "acuity": p.acuity, "status": p.status, "bed_type": p.bed_type,
