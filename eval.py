@@ -4,6 +4,7 @@ from typing import List, Dict
 from simulator import generate_arrivals, run_simulation
 from metrics import compute_metrics
 
+
 def multi_seed_eval(seeds: List[int], n_patients: int, interarrival_mean: float, acuity_levels: List[int], acuity_probs: List[float], bed_capacity: Dict[str, int], los_median: Dict[str, float], los_sigma: float, max_wait: float, policy_name: str = "baseline"):
     results = []
     for s in seeds:
