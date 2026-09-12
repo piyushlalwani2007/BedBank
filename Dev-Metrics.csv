@@ -1,0 +1,10 @@
+policy,seed,U_wait,U_critical,U_reject,U_specialized,n_admitted,n_rejected,n_avoidable_specialized
+baseline,20260911,0.3258,0.0773,0.834,1.0,417,83,0
+baseline,1,0.3871,0.2638,0.858,1.0,429,71,0
+baseline,2,0.3888,0.2283,0.854,1.0,427,73,0
+critical-bed-buffer,20260911,0.3296,0.0931,0.83,1.0,415,85,0
+critical-bed-buffer,1,0.3871,0.2638,0.858,1.0,429,71,0
+critical-bed-buffer,2,0.3931,0.238,0.854,1.0,427,73,0
+tiered-buffer,20260911,0.3296,0.0931,0.83,1.0,415,85,0
+tiered-buffer,1,0.3871,0.2638,0.858,1.0,429,71,0
+tiered-buffer,2,0.3931,0.238,0.854,1.0,427,73,0
