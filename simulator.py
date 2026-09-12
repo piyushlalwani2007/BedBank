@@ -5,6 +5,7 @@ from dataclasses import dataclass
 from typing import Optional, List, Dict
 from policies import try_assign_policy, pick_admissible_from_queue
 
+
 @dataclass
 class Patient:
     id: int
@@ -18,6 +19,7 @@ class Patient:
     free_general_at_assign: Optional[int] = None
     free_monitored_at_assign: Optional[int] = None
 
+
 def generate_arrivals(rng: np.random.Generator, n_patients: int, interarrival_mean: float, acuity_levels: List[int], acuity_probs: List[float]):
     """Generate n_patients arrivals: exponential interarrival times, categorical acuity."""
     patients = []
@@ -28,6 +30,7 @@ def generate_arrivals(rng: np.random.Generator, n_patients: int, interarrival_me
         patients.append(Patient(id=i, arrival_time=t, acuity=int(acuity)))
     return patients
 
+
 def run_simulation(patients: List[Patient], rng: np.random.Generator, bed_capacity: Dict[str, int], los_median: Dict[str, float], los_sigma: float, max_wait: float, policy_name: str = "baseline"):
     """Online, event-driven simulation. Policy only ever sees current/past state."""
     bed_state = {bt: {"free": cap} for bt, cap in bed_capacity.items()}
@@ -36,6 +39,7 @@ def run_simulation(patients: List[Patient], rng: np.random.Generator, bed_capaci
 
     event_queue = []
     seq = 0
+
     def schedule(time, event_type, pid):
         nonlocal seq
         heapq.heappush(event_queue, (time, seq, event_type, pid))
@@ -61,7 +65,9 @@ def run_simulation(patients: List[Patient], rng: np.random.Generator, bed_capaci
         patient = patient_by_id[pid]
 
         if event_type == "ARRIVAL":
-            bed_type = try_assign_policy(patient, bed_state, policy_name)
+            # waiting_queue is passed through so a dynamic reserve policy can check
+            # whether anyone is currently waiting for a given tier's home bed.
+            bed_type = try_assign_policy(patient, bed_state, policy_name, waiting_queue)
             if bed_type:
                 admit(patient, bed_type, current_time)
             else:
