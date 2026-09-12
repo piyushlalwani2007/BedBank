@@ -33,8 +33,8 @@ st.sidebar.header("Simulation Settings")
 seed_input = st.sidebar.text_input("Enter Seeds (comma separated)", "20260911, 1, 2")
 selected_policies = st.sidebar.multiselect(
     "Select Policies to Compare",
-    options=["baseline", "critical-bed-buffer"],
-    default=["baseline"]
+    options=["baseline", "critical-bed-buffer", "tiered-buffer"],
+    default=["baseline", "tiered-buffer"]
 )
 
 run_button = st.sidebar.button("Run Simulation")
@@ -79,10 +79,6 @@ if run_button:
         }))
 
         # Comparison Bar Chart if multiple policies are selected
-        if len(selected_policies) > 1:
-            st.subheader("Policy Comparison (Averages across Seeds)")
-            avg_df = df_results.groupby("Policy")[["U_wait", "U_critical", "U_reject", "U_specialized"]].mean()
-            st.bar_chart(avg_df)
         if len(selected_policies) > 1:
             st.subheader("Policy Comparison (Averages across Seeds)")
             avg_df = df_results.groupby("Policy")[["U_wait", "U_critical", "U_reject", "U_specialized"]].mean()
