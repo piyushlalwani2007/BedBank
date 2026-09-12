@@ -25,7 +25,7 @@ def cached_simulation_run(seed_val, policy_name):
     metrics, _ = compute_metrics(results, MAX_WAIT)
     return metrics
 
-st.title("🏥 Hospital Bed Allocation Simulator")
+st.title(" Hospital Bed Allocation Simulator")
 st.write("Assess room assignment rules, waiting metrics, and critical patient rejection rates.")
 
 # Sidebar Controls
